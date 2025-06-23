@@ -1,7 +1,7 @@
-package Service;
+package com.example.Expense.Tracking.System.Service;
 
-import Entity.PriceAlert;
-import Repository.PriceAlertRepository;
+import com.example.Expense.Tracking.System.Entity.PriceAlert;
+import com.example.Expense.Tracking.System.Repository.PriceAlertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

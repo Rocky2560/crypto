@@ -1,4 +1,4 @@
-package Entity;
+package com.example.Expense.Tracking.System.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Price Alert</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<h1>Crypto Price Alert System</h1>
+<form th:action="@{/alerts}" th:object="${alert}" method="post">
+    <label for="cryptoId">Crypto ID:</label>
+    <input type="text" id="cryptoId" name="cryptoId" placeholder="e.g. bitcoin" required><br><br>
+
+    <label for="targetPrice">Target Price (USD):</label>
+    <input type="number" step="0.01" id="targetPrice" name="targetPrice" required><br><br>
+
+    <label for="isAbove">Trigger when:</label>
+    <select id="isAbove" name="isAbove">
+        <option value="true">Above</option>
+        <option value="false">Below</option>
+    </select><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <button type="submit">Set Alert</button>
+</form>
+
+<h2>Existing Alerts</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Crypto</th>
+        <th>Target Price</th>
+        <th>Trigger</th>
+        <th>Email</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="alert : ${alerts}">
+        <td th:text="${alert.cryptoId}"></td>
+        <td th:text="${alert.targetPrice}"></td>
+        <td th:text="${alert.isAbove} ? 'Above' : 'Below'"></td>
+        <td th:text="${alert.email}"></td>
+        <td th:text="${alert.triggered} ? 'Triggered' : 'Pending'"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
