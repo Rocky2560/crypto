@@ -37,9 +37,15 @@ public class AlertService {
     }
 
     private double fetchCryptoPrice(String cryptoId) {
-        String url = "https://api.coingecko.com/api/v3/simple/price?ids=" + cryptoId + "&vs_currencies=usd";
-        Map<String, Map<String, Double>> response = restTemplate.getForObject(url, Map.class);
-        return response.get(cryptoId).get("usd");
+//        String url = "https://api.coincap.io/v2/assets/" + cryptoId + "&vs_currencies=usd";
+        String cryptoSymbol = "BTC";
+        String url = "https://min-api.cryptocompare.com/data/price?fsym=" + cryptoSymbol + "&tsyms=USD";
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, Double> response = restTemplate.getForObject(url, Map.class);
+
+        return response.get("USD");
+
     }
 
     private void sendEmail(String to, String cryptoId, double current, double target) {
