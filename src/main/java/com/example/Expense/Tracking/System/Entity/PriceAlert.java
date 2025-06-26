@@ -18,9 +18,11 @@ public class PriceAlert {
 
     private String cryptoId;    //e,g bitcoin, etherium
     private double targetPrice;
-    private boolean isAbove;   // true : alert if above, false : alert if below;
+    public Boolean isAbove;   // true : alert if above, false : alert if below;
     private String email;
     private boolean triggered = false;
-
+    public boolean isAbove() {
+        return this.isAbove = false; // ❌ don't do this if it overrides submitted value
+    }
 
 }

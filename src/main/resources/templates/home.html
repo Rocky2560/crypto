@@ -4,9 +4,123 @@
     <meta charset="UTF-8">
     <title>Crypto Price Alert</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 95%;
+            margin: 0 auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f5fa;
+        }
+
+        .status-pending {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .status-triggered {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .success-message {
+            max-width: 500px;
+            margin: 10px auto 20px;
+            padding: 15px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
 <h1>Crypto Price Alert System</h1>
+<div th:if="${success}" class="success-message">
+    <p th:text="${success}"></p>
+</div>
 <form th:action="@{/alerts}" th:object="${alert}" method="post">
     <label for="cryptoId">Crypto ID:</label>
     <input type="text" id="cryptoId" name="cryptoId" placeholder="e.g. bitcoin" required><br><br>
@@ -30,6 +144,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>S.N</th>
         <th>Crypto</th>
         <th>Target Price</th>
         <th>Trigger</th>
@@ -38,7 +153,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="alert : ${alerts}">
+    <tr th:each="alert, iterStat : ${alerts}">
+        <td th:text="${iterStat.index + 1}"></td>
         <td th:text="${alert.cryptoId}"></td>
         <td th:text="${alert.targetPrice}"></td>
         <td th:text="${alert.isAbove} ? 'Above' : 'Below'"></td>

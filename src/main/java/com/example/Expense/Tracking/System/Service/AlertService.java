@@ -27,7 +27,6 @@ public class AlertService {
         for (PriceAlert alert : alerts) {
             double currentPrice = fetchCryptoPrice(alert.getCryptoId());
             boolean shouldTrigger = alert.isAbove() ? currentPrice >= alert.getTargetPrice() : currentPrice <= alert.getTargetPrice();
-
             if (shouldTrigger) {
                 sendEmail(alert.getEmail(), alert.getCryptoId(), currentPrice, alert.getTargetPrice());
                 alert.setTriggered(true);
